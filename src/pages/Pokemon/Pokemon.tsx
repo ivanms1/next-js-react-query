@@ -97,7 +97,7 @@ const Pokemon = ({}: PokemonProps) => {
           description: uppercasedNameForSEO,
           images: [
             {
-              url: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data?.id}.png`,
+              url: sprite,
               width: 800,
               height: 800,
               alt: uppercasedNameForSEO,
