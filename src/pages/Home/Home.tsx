@@ -55,8 +55,8 @@ function Home() {
           images: [
             {
               url: PIKACHU_IMAGE,
-              width: 1600,
-              height: 1200,
+              width: 800,
+              height: 800,
               alt: "Pokemon + React Query",
             },
           ],
