@@ -1,31 +1,47 @@
 import Head from "next/head";
+import Image from "next/image";
 
-import Button from "@/components/Button";
+import { useQuery } from "@tanstack/react-query";
+
+import { getPokemons } from "services/getPokemons";
 
 import styles from "./Home.module.scss";
-import { useState } from "react";
+import { Pokemons } from "@types";
+import Link from "next/link";
 
 function Home() {
-  const [count, setCount] = useState(0);
+  const { data } = useQuery<Pokemons>({
+    queryKey: ["pokemons"],
+    queryFn: getPokemons,
+  });
 
-  const handleClick = () => {
-    setCount((prev) => prev + 1);
-  };
   return (
     <div className={styles.Container}>
       <Head>
-        <title>Next Template</title>
-        <meta name="description" content="Next.js template by Ivan" />
+        <title>Next js + React Query</title>
+        <meta name="description" content="Next js + React Query" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Welcome to My Next.js Template</h1>
-      <a href="https://github.com/ivanms1" target="_blank" rel="noreferrer">
-        ivanms1
-      </a>
-      <p>count: {count}</p>
-      <Button onClick={handleClick} className={styles.Button}>
-        Click Me
-      </Button>
+      <div className={styles.PokemonList}>
+        {data?.results?.map((pokemon, index) => (
+          <Link
+            href={`/pokemon/${pokemon.name}`}
+            key={pokemon.name}
+            className={styles.PokemonCard}
+          >
+            <Image
+              alt={pokemon.name}
+              className={styles.PokemonImage}
+              width={100}
+              height={100}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                index + 1
+              }.png`}
+            />
+            <p className={styles.PokemonName}>{pokemon.name}</p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
