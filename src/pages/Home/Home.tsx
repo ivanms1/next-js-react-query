@@ -8,6 +8,10 @@ import { getPokemons } from "services/getPokemons";
 import styles from "./Home.module.scss";
 import { Pokemons } from "@types";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
+
+const PIKACHU_IMAGE =
+  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg";
 
 function Home() {
   const { data } = useQuery<Pokemons>({
@@ -42,6 +46,22 @@ function Home() {
           </Link>
         ))}
       </div>
+      <NextSeo
+        title="Pokemon + React Query"
+        description="Pokemon + React Query"
+        openGraph={{
+          title: "Pokemon + React Query",
+          description: "Pokemon + React Query",
+          images: [
+            {
+              url: PIKACHU_IMAGE,
+              width: 1600,
+              height: 1200,
+              alt: "Pokemon + React Query",
+            },
+          ],
+        }}
+      />
     </div>
   );
 }

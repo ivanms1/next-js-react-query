@@ -1,14 +1,17 @@
-import Button from "@/components/Button";
 import classNames from "classnames";
 import { useQuery } from "@tanstack/react-query";
-import { Pokemon } from "@types";
+import { NextSeo } from "next-seo";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+
+import BaseStats from "@/components/BaseStats";
+import Button from "@/components/Button";
+
 import { getPokemon } from "services/getPokemon";
 
+import type { Pokemon } from "@types";
+
 import styles from "./Pokemon.module.scss";
-import BaseStats from "@/components/BaseStats";
 
 interface PokemonProps {}
 
@@ -27,16 +30,16 @@ const Pokemon = ({}: PokemonProps) => {
     return null;
   }
 
+  const uppercasedNameForSEO =
+    data.name.charAt(0).toUpperCase() + data.name.slice(1);
+
+  const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${data.id}.svg`;
+
   return (
     <div className={styles.Pokemon}>
       <Button onClick={back}>Back</Button>
       <h1>{data?.name}</h1>
-      <Image
-        width={400}
-        height={400}
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${data.id}.svg`}
-        alt={data?.name}
-      />
+      <Image width={400} height={400} src={sprite} alt={data?.name} />
       <div className={styles.InfoStatsContainer}>
         <div className="Info">
           <div className={styles.TypesContainer}>
@@ -86,6 +89,22 @@ const Pokemon = ({}: PokemonProps) => {
           }}
         />
       </div>
+      <NextSeo
+        title={uppercasedNameForSEO}
+        description={uppercasedNameForSEO}
+        openGraph={{
+          title: uppercasedNameForSEO,
+          description: uppercasedNameForSEO,
+          images: [
+            {
+              url: sprite,
+              width: 1600,
+              height: 1200,
+              alt: uppercasedNameForSEO,
+            },
+          ],
+        }}
+      />
     </div>
   );
 };
