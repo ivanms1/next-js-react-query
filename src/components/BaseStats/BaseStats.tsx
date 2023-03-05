@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import classNames from "classnames";
 
 import styles from "./BaseStats.module.scss";
@@ -25,11 +25,14 @@ interface BaseStatsProps {
 }
 
 const BaseStats = ({ baseStats }: BaseStatsProps) => {
-  const total = Object.values(baseStats).reduce((a, b) => a + b);
+  const total = useMemo(
+    () => Object.values(baseStats).reduce((acc, curr) => acc + curr, 0),
+    [baseStats]
+  );
 
   return (
     <div className={styles.BaseStats}>
-      <span className={styles.Title}>Base Stats:</span>
+      <span>Base Stats:</span>
       <div className={styles.Stats}>
         <div className={styles.Stat}>
           <div className={styles.StatInfo}>

@@ -59,54 +59,52 @@ export default async function Pokemon({ params }: Params) {
         priority
       />
       <div className={styles.InfoStatsContainer}>
-        <div className="Info">
-          <div className={styles.TypesContainer}>
-            <span>Types:</span>
-            <div className={styles.Types}>
-              {pokemon.types.map((type) => (
-                <span
-                  key={type.type.name}
-                  className={classNames(styles.Type, styles[type?.type?.name])}
-                >
-                  {type.type.name}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className={styles.Abilities}>
-            <span>Abilities:</span>
-            <div>
-              {pokemon.abilities.map((ability) => (
-                <span key={ability.ability.name} className={styles.Ability}>
-                  {ability.ability.name.replace("-", " ")}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className={styles.Abilities}>
-            <span>Heigth:</span>
-            <div>
-              <span className={styles.Ability}>{pokemon.height} m</span>
-            </div>
-          </div>
-          <div className={styles.Abilities}>
-            <span>Weight:</span>
-            <div>
-              <span className={styles.Ability}>{pokemon.weight} kg</span>
-            </div>
+        <div className={styles.Section}>
+          <span>Types:</span>
+          <div className={styles.Types}>
+            {pokemon.types.map((type) => (
+              <span
+                key={type.type.name}
+                className={classNames(styles.Type, styles[type?.type?.name])}
+              >
+                {type.type.name}
+              </span>
+            ))}
           </div>
         </div>
-        <BaseStats
-          baseStats={{
-            hp: pokemon.stats[0].base_stat,
-            attack: pokemon.stats[1].base_stat,
-            defense: pokemon.stats[2].base_stat,
-            specialAttack: pokemon.stats[3].base_stat,
-            specialDefense: pokemon.stats[4].base_stat,
-            speed: pokemon.stats[5].base_stat,
-          }}
-        />
+        <div className={styles.Section}>
+          <span>Abilities:</span>
+          <div className={styles.Abilities}>
+            {pokemon.abilities.map((ability) => (
+              <span key={ability.ability.name} className={styles.Ability}>
+                {ability.ability.name.replace("-", " ")}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className={styles.Section}>
+          <span>Heigth:</span>
+          <div>
+            <span>{pokemon.height} m</span>
+          </div>
+        </div>
+        <div className={styles.Section}>
+          <span>Weight:</span>
+          <div>
+            <span>{pokemon.weight} kg</span>
+          </div>
+        </div>
       </div>
+      <BaseStats
+        baseStats={{
+          hp: pokemon.stats[0].base_stat,
+          attack: pokemon.stats[1].base_stat,
+          defense: pokemon.stats[2].base_stat,
+          specialAttack: pokemon.stats[3].base_stat,
+          specialDefense: pokemon.stats[4].base_stat,
+          speed: pokemon.stats[5].base_stat,
+        }}
+      />
     </div>
   );
 }
