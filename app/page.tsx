@@ -1,23 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
-import { useQuery } from "@tanstack/react-query";
+import styles from "./Home.module.scss";
 
 import { getPokemons } from "services/getPokemons";
 
-import styles from "./Home.module.scss";
-import { Pokemons } from "@types";
-import Link from "next/link";
-import { NextSeo } from "next-seo";
-
-const PIKACHU_IMAGE =
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg";
-
-function Home() {
-  const { data } = useQuery<Pokemons>({
-    queryKey: ["pokemons"],
-    queryFn: getPokemons,
-  });
+export default async function Page() {
+  const results = await getPokemons();
 
   return (
     <div className={styles.Container}>
@@ -27,7 +17,7 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.PokemonList}>
-        {data?.results?.map((pokemon, index) => (
+        {results.results?.map((pokemon, index) => (
           <Link
             href={`/pokemon/${pokemon.name}`}
             key={pokemon.name}
@@ -46,24 +36,6 @@ function Home() {
           </Link>
         ))}
       </div>
-      <NextSeo
-        title="Pokemon + React Query"
-        description="Pokemon + React Query"
-        openGraph={{
-          title: "Pokemon + React Query",
-          description: "Pokemon + React Query",
-          images: [
-            {
-              url: PIKACHU_IMAGE,
-              width: 800,
-              height: 800,
-              alt: "Pokemon + React Query",
-            },
-          ],
-        }}
-      />
     </div>
   );
 }
-
-export default Home;

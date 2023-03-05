@@ -13,7 +13,7 @@ export interface Pokemon {
   };
   types: {
     type: {
-      name: string;
+      name: Types;
     };
   }[];
   stats: {
@@ -35,3 +35,23 @@ export interface Pokemons {
   previous: string;
   results: PokemonFromList[];
 }
+
+type Types =
+  | "normal"
+  | "fighting"
+  | "flying"
+  | "poison"
+  | "ground"
+  | "rock"
+  | "bug"
+  | "ghost"
+  | "steel"
+  | "fire"
+  | "water"
+  | "grass"
+  | "electric"
+  | "psychic"
+  | "ice"
+  | "dragon"
+  | "dark"
+  | "fairy";
