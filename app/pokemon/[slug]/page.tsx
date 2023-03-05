@@ -51,7 +51,13 @@ export default async function Pokemon({ params }: Params) {
     <div className={styles.Pokemon}>
       <Link href="/">Home</Link>
       <h1>{pokemon?.name}</h1>
-      <Image width={400} height={400} src={sprite} alt={pokemon?.name} />
+      <Image
+        width={400}
+        height={400}
+        src={sprite}
+        alt={pokemon?.name}
+        priority
+      />
       <div className={styles.InfoStatsContainer}>
         <div className="Info">
           <div className={styles.TypesContainer}>
